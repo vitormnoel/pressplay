@@ -1,6 +1,7 @@
 import React from "react";
 
 import Playlist from "../components/playlist/playlist";
+// import ProfileImage from "../components/profile/image";
 import SearchBar from "../components/search/search_bar";
 import SearchResults from "../components/search/search_results";
 import Spotify from "../components/util/spotify";
@@ -12,12 +13,14 @@ class App extends React.Component {
       searchResults: [],
       playlistName: "My Playlist",
       playlistTracks: [],
+      img: "",
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
+    this.profile = this.profile.bind(this);
   }
 
   addTrack(track) {
@@ -59,6 +62,12 @@ class App extends React.Component {
     });
   }
 
+  profile(){
+    Spotify.profile().then((img) => {
+      this.setState({img: img})
+    })
+  }
+
   render() {
     return (
       <div className="bg-gradient-to-t from-blue-900 to-violet-700 pb-10">
@@ -67,6 +76,7 @@ class App extends React.Component {
         </h1>
         <div>
           <SearchBar onSearch={this.search} />
+          {/* <ProfileImage onLoad={this.profile}/> */}
           <div className="lg:flex container m-auto">
             <SearchResults
               searchResults={this.state.searchResults}

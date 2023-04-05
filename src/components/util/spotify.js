@@ -2,7 +2,7 @@ let accessToken;
 let clientID = "36e6dd5dba464479a975b19cbf5d1dcf";
 
 //hosted on
-let redirectURI = "https://pressplay.vitormnoel.dev";
+let redirectURI = "https://pressplay.vitormnoel.dev"; 
 
 const Spotify = {
   getAccessToken() {
@@ -28,8 +28,29 @@ const Spotify = {
     }
   },
 
+  async profile() {
+    try {
+      const accessToken = Spotify.getAccessToken();
+      const response = await fetch("https://api.spotify.com/v1/me", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const jsonResponse = await response.json();
+
+      const photo = jsonResponse.images[0].url;
+      
+      // console.log(`photo: ${String(photo)}`)
+
+      return photo;
+    } catch (error) {
+      return 'https://i.imgur.com/4Z0wZQx.png';
+    }
+  },
+
   //search method
   async searchRecommendation(term) {
+    this.profile();
     return this.recommendationData(term);
   },
 
@@ -76,7 +97,7 @@ const Spotify = {
     return this.recommendation(artist, genres);
   },
 
-    //save playlist method
+  //save playlist method
   async savePlaylist(name, trackUris) {
     if (!name || !trackUris.length) {
       return;
@@ -111,7 +132,7 @@ const Spotify = {
   },
 
   //normal search
-  async searchWithTerm(term){
+  async searchWithTerm(term) {
     const accessToken = Spotify.getAccessToken();
     const response = await fetch(
       `https://api.spotify.com/v1/search?type=track&q=${term}$limit=20`,
@@ -128,14 +149,14 @@ const Spotify = {
       return [];
     }
 
-     jsonResponse.tracks.items.map((track) => ({
+    jsonResponse.tracks.items.map((track) => ({
       id: track.id,
       name: track.name,
       artist: track.artists[0].name,
       album: track.album.name,
       uri: track.uri,
     }));
-  }
+  },
 };
 
 export default Spotify;
