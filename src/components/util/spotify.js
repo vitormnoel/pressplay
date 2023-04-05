@@ -2,7 +2,7 @@ let accessToken;
 let clientID = "36e6dd5dba464479a975b19cbf5d1dcf";
 
 //hosted on
-let redirectURI = "http://pressplay.vitormnoel.dev";
+let redirectURI = "https://pressplay.vitormnoel.dev";
 
 const Spotify = {
   getAccessToken() {
