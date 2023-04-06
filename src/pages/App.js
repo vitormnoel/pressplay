@@ -1,7 +1,7 @@
 import React from "react";
 
 import Playlist from "../components/playlist/playlist";
-// import ProfileImage from "../components/profile/image";
+import ProfileImage from "../components/profile/image";
 import SearchBar from "../components/search/search_bar";
 import SearchResults from "../components/search/search_results";
 import Spotify from "../components/util/spotify";
@@ -62,10 +62,10 @@ class App extends React.Component {
     });
   }
 
-  profile(){
+  profile() {
     Spotify.profile().then((img) => {
-      this.setState({img: img})
-    })
+      this.setState({ img: img });
+    });
   }
 
   render() {
@@ -75,8 +75,8 @@ class App extends React.Component {
           Press<span className="text-violet-400">Play</span>
         </h1>
         <div>
+          <ProfileImage />
           <SearchBar onSearch={this.search} />
-          {/* <ProfileImage onLoad={this.profile}/> */}
           <div className="lg:flex container m-auto">
             <SearchResults
               searchResults={this.state.searchResults}
@@ -91,7 +91,9 @@ class App extends React.Component {
             />
           </div>
         </div>
-        <p className="text-slate-200 text-base text-center font-normal">&copy; 2023 - (vitormnoel);</p>
+        <p className="text-slate-200 text-base text-center font-normal">
+          &copy; 2023 - (vitormnoel);
+        </p>
       </div>
     );
   }
