@@ -24,7 +24,7 @@ class SearchBar extends React.Component {
     return (
       <div className="flex flex-col items-center mt-10">
         <input
-          className="bg-white text-start p-4 rounded-lg w-1/2 md:w-1/4"
+          className="bg-white text-start p-4 rounded-lg w-[80vw] md:w-1/4"
           placeholder="enter a song, album, or artist..."
           onChange={this.handleTermChange}
         />
